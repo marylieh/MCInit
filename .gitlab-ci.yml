@@ -5,6 +5,9 @@ stages:
 variables:
   BUILD_DIR: build
   
+default:
+  image: swift:6.0.3
+  
 before_script:
   - swift --version
   
