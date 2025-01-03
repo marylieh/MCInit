@@ -1,0 +1,26 @@
+stages:
+  - build
+  - test
+  
+variables:
+  BUILD_DIR: build
+  
+before_script:
+  - swift --version
+  
+build:
+  stage: build
+  tags:
+    - kubernetes
+  script:
+    - swift build --build-path $BUILD_DIR
+  artifacts:
+    paths:
+      - $BUILD_DIR
+      
+test:
+  stage: test
+  tags:
+    - kubernetes
+  script:
+    - swift test --build-path $BUILD_DIR
