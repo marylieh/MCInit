@@ -10,6 +10,9 @@ default:
   
 before_script:
   - swift --version
+  - echo 'import Foundation; print("Foundation available!")' > test.swift
+  - swift test.swift
+  - swift --version
   
 build:
   stage: build
