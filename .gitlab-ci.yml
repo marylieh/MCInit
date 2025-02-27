@@ -1,7 +1,7 @@
 stages:
   - analyze
-  - build
   - test
+  - build
   
 variables:
   BUILD_DIR: build
