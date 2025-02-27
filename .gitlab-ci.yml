@@ -33,6 +33,8 @@ test:
 
 analyze:
   stage: analyze
+  tags:
+    - kubernetes
   image:
     name: sonarsource/sonar-scanner-cli:11
     entrypoint: [""]
