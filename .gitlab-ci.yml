@@ -3,13 +3,12 @@ stages:
   - test
   - build
   
-variables:
-  BUILD_DIR: build
-  
 build:
   stage: build
   tags:
     - macos
+  variables:
+    BUILD_DIR: build
   before_script:
     - swift --version
     - echo 'import Foundation; print("Foundation available!")' > test.swift
@@ -25,6 +24,8 @@ test:
   stage: test
   tags:
     - macos
+  variables:
+    BUILD_DIR: build
   before_script:
     - swift --version
     - echo 'import Foundation; print("Foundation available!")' > test.swift
