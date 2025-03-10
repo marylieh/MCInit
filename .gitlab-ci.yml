@@ -37,7 +37,7 @@ test:
 analyze:
   stage: analyze
   tags: 
-    - kubernetes
+    - macos
   image:
     name: sonarsource/sonar-scanner-cli:11
     entrypoint: [""]
