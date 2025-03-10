@@ -38,9 +38,6 @@ analyze:
   stage: analyze
   tags: 
     - macos
-  image:
-    name: sonarsource/sonar-scanner-cli:11
-    entrypoint: [""]
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
     GIT_DEPTH: "0"
