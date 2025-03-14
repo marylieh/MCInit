@@ -104,7 +104,9 @@ class InstanceManager {
         let errorPipe = Pipe()
 
         process.executableURL = URL(fileURLWithPath: "/bin/bash")
-        process.arguments = ["-c", "curl -O https://api.papermc.io/v2/projects/\(type)/versions/\(version)/builds/\(build)/downloads/\(type)-\(version)-\(build).jar"]
+        let base = "https://api.papermc.io/v2/projects/\(type)/versions/\(version)/builds/\(build)"
+        let url = "\(base)/downloads/\(type)-\(version)-\(build).jar"
+        process.arguments = ["-c", "curl -O \(url)"]
         process.standardOutput = outputPipe
         process.standardError = errorPipe
 
@@ -122,7 +124,10 @@ class InstanceManager {
 
         if FileManager.default.fileExists(atPath: "./\(type)-\(version)-\(build).jar") {
             do {
-                try FileManager.default.moveItem(atPath: "./\(type)-\(version)-\(build).jar", toPath: "./\(instanceName)/\(type)-\(version)-\(build).jar")
+                try FileManager.default.moveItem(
+                    atPath: "./\(type)-\(version)-\(build).jar",
+                    toPath: "./\(instanceName)/\(type)-\(version)-\(build).jar"
+                )
             } catch {
                 print("An error occurred while moving server software to destination.")
             }
@@ -157,7 +162,10 @@ class InstanceManager {
 
         if !FileManager.default.fileExists(atPath: "./\(instanceName)/plugins") {
             do {
-                try FileManager.default.createDirectory(atPath: "./\(instanceName)/plugins", withIntermediateDirectories: true)
+                try FileManager.default.createDirectory(
+                    atPath: "./\(instanceName)/plugins",
+                    withIntermediateDirectories: true
+                )
             } catch {
                 print("An error occurred while creating plugins directory.")
             }
@@ -165,7 +173,10 @@ class InstanceManager {
 
         if FileManager.default.fileExists(atPath: ".\(url.split(separator: "/").last!)") {
             do {
-                try FileManager.default.moveItem(atPath: ".\(url.split(separator: "/").last!)", toPath: "./\(instanceName)/plugins/\(url.split(separator: "/").last!)")
+                try FileManager.default.moveItem(
+                    atPath: ".\(url.split(separator: "/").last!)",
+                    toPath: "./\(instanceName)/plugins/\(url.split(separator: "/").last!)"
+                )
             } catch {
                 print("An error occurred while moving plugin to destination.")
             }
@@ -188,7 +199,14 @@ class InstanceManager {
         }
     }
 
-    func createStartScript(instanceName: String, instanceType: String, instanceVersion: String, instanceBuild: Int, memory: Int, nogui: Bool = false) {
+    func createStartScript(
+        instanceName: String,
+        instanceType: String,
+        instanceVersion: String,
+        instanceBuild: Int,
+        memory: Int,
+        nogui: Bool = false
+    ) {
         let fileName = "start.sh"
         let path = URL(string: "./\(instanceName)/\(fileName)")!
         var writableText = "java -Xms512M -Xmx\(memory)M -jar \(instanceType)-\(instanceVersion)-\(instanceBuild).jar"
@@ -292,7 +310,10 @@ class InstanceManager {
 
     private func createPluginDirectory(instanceName: String) throws {
         do {
-            try FileManager.default.createDirectory(atPath: "./\(instanceName)/plugins", withIntermediateDirectories: true)
+            try FileManager.default.createDirectory(
+                atPath: "./\(instanceName)/plugins",
+                withIntermediateDirectories: true
+            )
         } catch {
             print("An error occurred while trying to create plugin directory: \(error.localizedDescription)")
         }
