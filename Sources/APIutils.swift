@@ -38,7 +38,7 @@ class APIutils {
         do {
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                let versions = json["versions"] as? [String] {
-                
+
                 let latestVersion = versions.sorted { version1, version2 in
                     compareVersions(version1, version2)
                 }.last
@@ -82,9 +82,15 @@ class APIutils {
         do {
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                let rawID = json["id"] as? String {
-                let regexPattern = #"^([a-fA-F0-9]{8})([a-fA-F0-9]{4})([a-fA-F0-9]{4})([a-fA-F0-9]{4})([a-fA-F0-9]{12})$"#
+                let regexPattern = #"""
+                ^([a-fA-F0-9]{8})([a-fA-F0-9]{4})([a-fA-F0-9]{4})
+                ([a-fA-F0-9]{4})([a-fA-F0-9]{12})$
+                """#
                 if let regex = try? NSRegularExpression(pattern: regexPattern),
-                   let match = regex.firstMatch(in: rawID, range: NSRange(rawID.startIndex..<rawID.endIndex, in: rawID)) {
+                   let match = regex.firstMatch(
+                       in: rawID,
+                       range: NSRange(rawID.startIndex..<rawID.endIndex, in: rawID)
+                   ) {
                     let formattedID = [
                         rawID[Range(match.range(at: 1), in: rawID)!],
                         rawID[Range(match.range(at: 2), in: rawID)!],
