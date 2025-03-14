@@ -61,7 +61,7 @@ enum ServerProperty: String {
     case useNativeTransport = "use-native-transport"
     case viewDistance = "view-distance"
     case whiteList = "white-list"
-    
+
     var defaultValue: String {
         switch self {
         case .acceptTransfers:
