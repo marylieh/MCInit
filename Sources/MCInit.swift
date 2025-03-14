@@ -74,7 +74,7 @@ struct MCInit: ParsableCommand {
 
         if let difficulty = difficulty {
             let validDifficulties: Set<String> = ["peaceful", "easy", "normal", "hard"]
-            
+
             if !validDifficulties.contains(difficulty.lowercased()) {
                 print("Invalid difficulty. Please choose from: \(validDifficulties.joined(separator: ", "))")
                 return
