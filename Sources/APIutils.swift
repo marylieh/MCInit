@@ -82,10 +82,7 @@ class APIutils {
         do {
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                let rawID = json["id"] as? String {
-                let regexPattern = #"""
-                ^([a-fA-F0-9]{8})([a-fA-F0-9]{4})([a-fA-F0-9]{4})
-                ([a-fA-F0-9]{4})([a-fA-F0-9]{12})$
-                """#
+                let regexPattern = "^([a-fA-F0-9]{8})([a-fA-F0-9]{4})([a-fA-F0-9]{4})([a-fA-F0-9]{4})([a-fA-F0-9]{12})$"
                 if let regex = try? NSRegularExpression(pattern: regexPattern),
                    let match = regex.firstMatch(
                        in: rawID,
