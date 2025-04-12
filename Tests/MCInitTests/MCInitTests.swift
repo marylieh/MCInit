@@ -21,7 +21,7 @@ final class MCInitTests: XCTestCase {
     
     func testFetchLatestPaperVersion() throws {
         // Arrange
-        let expectedOutput = 132
+        let expectedOutput = 133
         let version = "1.21.1"
         let apiURL = "https://api.papermc.io/v2/projects/paper/versions/\(version)"
         let apiUtils = APIutils()
@@ -128,7 +128,7 @@ final class MCInitTests: XCTestCase {
         softwareManager.completeDownload(type: instanceType, version: instanceVersion, instanceName: instanceName, memory: nil, nogui: true)
         
         // Assert
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "./\(instanceName)/\(instanceType)-\(instanceVersion)-132.jar"))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: "./\(instanceName)/\(instanceType)-\(instanceVersion)-133.jar"))
         
         // Cleanup
         try FileManager.default.removeItem(atPath: "./\(instanceName)")
