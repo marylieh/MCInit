@@ -80,7 +80,7 @@ final class MCInitTests: XCTestCase {
     
     func testDownloadedServerSoftware() throws {
         // Arrange
-        let instanceManager = InstanceManager()
+        let softwareManager = SoftwareManager()
         let instanceName = "TestServer"
         let instanceVersion = "1.21.1"
         let instanceType = "paper"
@@ -88,7 +88,7 @@ final class MCInitTests: XCTestCase {
         
         // Act
         try FileManager.default.createDirectory(atPath: "./\(instanceName)", withIntermediateDirectories: true)
-        let _ = instanceManager.downloadServerSoftware(type: instanceType, version: instanceVersion, instanceName: instanceName, build: build)
+        let _ = softwareManager.downloadServerSoftware(type: instanceType, version: instanceVersion, instanceName: instanceName, build: build)
         
         // Assert
         XCTAssertTrue(FileManager.default.fileExists(atPath: "./\(instanceName)/\(instanceType)-\(instanceVersion)-\(build).jar"))
@@ -99,7 +99,7 @@ final class MCInitTests: XCTestCase {
     
     func testDownloadVelocityServerSoftware() throws {
         // Arrange
-        let instanceManager = InstanceManager()
+        let softwareManager = SoftwareManager()
         let instanceName = "TestServer"
         let instanceVersion = "3.4.0-SNAPSHOT"
         let instanceType = "velocity"
@@ -107,7 +107,7 @@ final class MCInitTests: XCTestCase {
         
         // Act
         try FileManager.default.createDirectory(atPath: "./\(instanceName)", withIntermediateDirectories: true)
-        let _ = instanceManager.downloadServerSoftware(type: instanceType, version: instanceVersion, instanceName: instanceName, build: build)
+        let _ = softwareManager.downloadServerSoftware(type: instanceType, version: instanceVersion, instanceName: instanceName, build: build)
         
         // Assert
         XCTAssertTrue(FileManager.default.fileExists(atPath: "./\(instanceName)/\(instanceType)-\(instanceVersion)-\(build).jar"))
@@ -118,14 +118,14 @@ final class MCInitTests: XCTestCase {
     
     func testCompleteDownload() throws {
         // Arrange
-        let instanceManager = InstanceManager()
+        let softwareManager = SoftwareManager()
         let instanceName = "TestServer"
         let instanceVersion = "1.21.1"
         let instanceType = "paper"
         
         // Act
         try FileManager.default.createDirectory(atPath: "./\(instanceName)", withIntermediateDirectories: true)
-        instanceManager.completeDownload(type: instanceType, version: instanceVersion, instanceName: instanceName, memory: nil, nogui: true)
+        softwareManager.completeDownload(type: instanceType, version: instanceVersion, instanceName: instanceName, memory: nil, nogui: true)
         
         // Assert
         XCTAssertTrue(FileManager.default.fileExists(atPath: "./\(instanceName)/\(instanceType)-\(instanceVersion)-132.jar"))
