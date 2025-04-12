@@ -38,6 +38,7 @@ struct MCInit: ParsableCommand {
 
     func run() throws {
         let instanceManager = InstanceManager()
+        let softwareManager = SoftwareManager()
 
         if eula == false {
             print("You must accept the Mojang EULA to continue.")
@@ -45,7 +46,7 @@ struct MCInit: ParsableCommand {
         }
 
         _ = try instanceManager.initializeInstance(name: name)
-        instanceManager.completeDownload(type: type, version: version, instanceName: name, memory: memory, nogui: nogui)
+        softwareManager.completeDownload(type: type, version: version, instanceName: name, memory: memory, nogui: nogui)
         try instanceManager.acceptEula(instanceName: name)
 
         if let operatorName = operatorName {
