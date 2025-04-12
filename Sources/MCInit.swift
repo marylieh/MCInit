@@ -24,8 +24,8 @@ struct MCInit: ParsableCommand {
     @Option(name: .shortAndLong, help: "Server operator (Only one player can be initial operator)")
     var operatorName: String?
 
-    @Option(name: .shortAndLong, help: "Whitelist players (comma separated)")
-    var whitelist: String?
+    @Option(name: .shortAndLong, help: "Allow players to join your server (comma separated)")
+    var allowlist: String?
 
     @Option(name: .shortAndLong, help: "Server default gamemode. (creative, adventure, survival, spectator)")
     var gamemode: String?
@@ -53,8 +53,8 @@ struct MCInit: ParsableCommand {
             instanceManager.addOperator(instanceName: name, playerName: operatorName)
         }
 
-        if let whitelist = whitelist {
-            instanceManager.addWhitelist(instanceName: name, playerName: whitelist)
+        if let allowlist = allowlist {
+            instanceManager.addAllowlist(instanceName: name, playerName: allowlist)
             try instanceManager.setServerProperty(property: ServerProperty.whiteList, value: "true", instanceName: name)
         }
 

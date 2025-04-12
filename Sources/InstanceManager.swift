@@ -73,7 +73,7 @@ class InstanceManager {
         }
     }
 
-    func addWhitelist(instanceName: String, playerName: String) {
+    func addAllowlist(instanceName: String, playerName: String) {
         let players = playerName.split(separator: ",").map { String($0) }
         let fileName = "whitelist.json"
         let path = URL(string: "./\(instanceName)/\(fileName)")!
