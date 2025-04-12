@@ -21,7 +21,7 @@ final class MCInitTests: XCTestCase {
     
     func testFetchLatestPaperVersion() throws {
         // Arrange
-        let expectedOutput = 132
+        let expectedOutput = 133
         let version = "1.21.1"
         let apiURL = "https://api.papermc.io/v2/projects/paper/versions/\(version)"
         let apiUtils = APIutils()
@@ -80,7 +80,7 @@ final class MCInitTests: XCTestCase {
     
     func testDownloadedServerSoftware() throws {
         // Arrange
-        let instanceManager = InstanceManager()
+        let softwareManager = SoftwareManager()
         let instanceName = "TestServer"
         let instanceVersion = "1.21.1"
         let instanceType = "paper"
@@ -88,7 +88,7 @@ final class MCInitTests: XCTestCase {
         
         // Act
         try FileManager.default.createDirectory(atPath: "./\(instanceName)", withIntermediateDirectories: true)
-        let _ = instanceManager.downloadServerSoftware(type: instanceType, version: instanceVersion, instanceName: instanceName, build: build)
+        let _ = softwareManager.downloadServerSoftware(type: instanceType, version: instanceVersion, instanceName: instanceName, build: build)
         
         // Assert
         XCTAssertTrue(FileManager.default.fileExists(atPath: "./\(instanceName)/\(instanceType)-\(instanceVersion)-\(build).jar"))
@@ -99,7 +99,7 @@ final class MCInitTests: XCTestCase {
     
     func testDownloadVelocityServerSoftware() throws {
         // Arrange
-        let instanceManager = InstanceManager()
+        let softwareManager = SoftwareManager()
         let instanceName = "TestServer"
         let instanceVersion = "3.4.0-SNAPSHOT"
         let instanceType = "velocity"
@@ -107,7 +107,7 @@ final class MCInitTests: XCTestCase {
         
         // Act
         try FileManager.default.createDirectory(atPath: "./\(instanceName)", withIntermediateDirectories: true)
-        let _ = instanceManager.downloadServerSoftware(type: instanceType, version: instanceVersion, instanceName: instanceName, build: build)
+        let _ = softwareManager.downloadServerSoftware(type: instanceType, version: instanceVersion, instanceName: instanceName, build: build)
         
         // Assert
         XCTAssertTrue(FileManager.default.fileExists(atPath: "./\(instanceName)/\(instanceType)-\(instanceVersion)-\(build).jar"))
@@ -118,17 +118,17 @@ final class MCInitTests: XCTestCase {
     
     func testCompleteDownload() throws {
         // Arrange
-        let instanceManager = InstanceManager()
+        let softwareManager = SoftwareManager()
         let instanceName = "TestServer"
         let instanceVersion = "1.21.1"
         let instanceType = "paper"
         
         // Act
         try FileManager.default.createDirectory(atPath: "./\(instanceName)", withIntermediateDirectories: true)
-        instanceManager.completeDownload(type: instanceType, version: instanceVersion, instanceName: instanceName, memory: nil, nogui: true)
+        softwareManager.completeDownload(type: instanceType, version: instanceVersion, instanceName: instanceName, memory: nil, nogui: true)
         
         // Assert
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "./\(instanceName)/\(instanceType)-\(instanceVersion)-132.jar"))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: "./\(instanceName)/\(instanceType)-\(instanceVersion)-133.jar"))
         
         // Cleanup
         try FileManager.default.removeItem(atPath: "./\(instanceName)")
@@ -246,7 +246,7 @@ final class MCInitTests: XCTestCase {
         try FileManager.default.removeItem(atPath: "./\(instanceName)")
     }
     
-    func testWhitelist() throws {
+    func testAllowlist() throws {
         // Arrange
         let instanceManager = InstanceManager()
         let instanceName = "TestServer"
@@ -262,7 +262,7 @@ final class MCInitTests: XCTestCase {
         
         // Act
         try FileManager.default.createDirectory(atPath: "./\(instanceName)", withIntermediateDirectories: true)
-        instanceManager.addWhitelist(instanceName: instanceName, playerName: playerName)
+        instanceManager.addAllowlist(instanceName: instanceName, playerName: playerName)
         
         // Assert
         let fileContents = try String(contentsOf: URL(fileURLWithPath: "./\(instanceName)/whitelist.json"), encoding: .utf8)
@@ -273,7 +273,7 @@ final class MCInitTests: XCTestCase {
         try FileManager.default.removeItem(atPath: "./\(instanceName)")
     }
     
-    func testWhitelistEnabled() throws {
+    func testAllowlistEnabled() throws {
         // Arrange
         let instanceManager = InstanceManager()
         let instanceName = "TestServer"

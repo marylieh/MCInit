@@ -24,8 +24,8 @@ struct MCInit: ParsableCommand {
     @Option(name: .shortAndLong, help: "Server operator (Only one player can be initial operator)")
     var operatorName: String?
 
-    @Option(name: .shortAndLong, help: "Whitelist players (comma separated)")
-    var whitelist: String?
+    @Option(name: .shortAndLong, help: "Allow players to join your server (comma separated)")
+    var allowlist: String?
 
     @Option(name: .shortAndLong, help: "Server default gamemode. (creative, adventure, survival, spectator)")
     var gamemode: String?
@@ -38,6 +38,7 @@ struct MCInit: ParsableCommand {
 
     func run() throws {
         let instanceManager = InstanceManager()
+        let softwareManager = SoftwareManager()
 
         if eula == false {
             print("You must accept the Mojang EULA to continue.")
@@ -45,15 +46,15 @@ struct MCInit: ParsableCommand {
         }
 
         _ = try instanceManager.initializeInstance(name: name)
-        instanceManager.completeDownload(type: type, version: version, instanceName: name, memory: memory, nogui: nogui)
+        softwareManager.completeDownload(type: type, version: version, instanceName: name, memory: memory, nogui: nogui)
         try instanceManager.acceptEula(instanceName: name)
 
         if let operatorName = operatorName {
             instanceManager.addOperator(instanceName: name, playerName: operatorName)
         }
 
-        if let whitelist = whitelist {
-            instanceManager.addWhitelist(instanceName: name, playerName: whitelist)
+        if let allowlist = allowlist {
+            instanceManager.addAllowlist(instanceName: name, playerName: allowlist)
             try instanceManager.setServerProperty(property: ServerProperty.whiteList, value: "true", instanceName: name)
         }
 
