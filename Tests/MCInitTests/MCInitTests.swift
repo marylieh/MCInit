@@ -246,7 +246,7 @@ final class MCInitTests: XCTestCase {
         try FileManager.default.removeItem(atPath: "./\(instanceName)")
     }
     
-    func testWhitelist() throws {
+    func testAllowlist() throws {
         // Arrange
         let instanceManager = InstanceManager()
         let instanceName = "TestServer"
@@ -262,7 +262,7 @@ final class MCInitTests: XCTestCase {
         
         // Act
         try FileManager.default.createDirectory(atPath: "./\(instanceName)", withIntermediateDirectories: true)
-        instanceManager.addWhitelist(instanceName: instanceName, playerName: playerName)
+        instanceManager.addAllowlist(instanceName: instanceName, playerName: playerName)
         
         // Assert
         let fileContents = try String(contentsOf: URL(fileURLWithPath: "./\(instanceName)/whitelist.json"), encoding: .utf8)
@@ -273,7 +273,7 @@ final class MCInitTests: XCTestCase {
         try FileManager.default.removeItem(atPath: "./\(instanceName)")
     }
     
-    func testWhitelistEnabled() throws {
+    func testAllowlistEnabled() throws {
         // Arrange
         let instanceManager = InstanceManager()
         let instanceName = "TestServer"
